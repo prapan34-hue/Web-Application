@@ -1,74 +1,25 @@
-from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
-from pathlib import Path
-import mimetypes
+from flask import Flask, send_from_directory
+import os
 
-ROOT = Path(__file__).resolve().parent
-TEMPLATES_DIR = ROOT / "templates"
-STATIC_DIR = ROOT / "static"
+app = Flask(__name__, static_folder='.')
 
-ROUTES = {
-    "/": "index.html",
-    "/about": "about.html",
-    "/myresearch": "myresearch.html",
-}
+@app.route('/')
+def home():
+    return send_from_directory('.', 'index.html')
 
+@app.route('/about')
+def about():
+    return send_from_directory('.', 'about.html')
 
-class AppHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        if self.path.startswith("/static/"):
-            self.serve_static()
-            return
+@app.route('/myresearch')
+def myresearch():
+    return send_from_directory('.', 'myresearch.html')
 
-        template_name = ROUTES.get(self.path)
-        if template_name:
-            self.send_html(template_name)
-            return
+@app.route('/<path:path>')
+def serve_file(path):
+    if os.path.exists(path):
+        return send_from_directory('.', path)
+    return send_from_directory('.', 'index.html')
 
-        self.send_response(404)
-        self.send_header("Content-Type", "text/plain; charset=utf-8")
-        self.end_headers()
-        self.wfile.write(b"404 Not Found")
-
-    def send_html(self, filename):
-        file_path = TEMPLATES_DIR / filename
-        if not file_path.exists():
-            self.send_response(404)
-            self.send_header("Content-Type", "text/plain; charset=utf-8")
-            self.end_headers()
-            self.wfile.write(b"404 Not Found")
-            return
-
-        content = file_path.read_text(encoding="utf-8")
-        self.send_response(200)
-        self.send_header("Content-Type", "text/html; charset=utf-8")
-        self.end_headers()
-        self.wfile.write(content.encode("utf-8"))
-
-    def serve_static(self):
-        rel_path = self.path.lstrip("/")
-        file_path = STATIC_DIR / rel_path.replace("static/", "", 1)
-        if file_path.exists() and file_path.is_file():
-            content = file_path.read_bytes()
-            mime_type, _ = mimetypes.guess_type(str(file_path))
-            if mime_type is None:
-                mime_type = "application/octet-stream"
-            self.send_response(200)
-            self.send_header("Content-Type", mime_type)
-            self.send_header("Content-Length", str(len(content)))
-            self.end_headers()
-            self.wfile.write(content)
-        else:
-            self.send_response(404)
-            self.send_header("Content-Type", "text/plain; charset=utf-8")
-            self.end_headers()
-            self.wfile.write(b"404 Not Found")
-
-    def log_message(self, format, *args):
-        return
-
-
-if __name__ == "__main__":
-    port = 8000
-    server = ThreadingHTTPServer(("127.0.0.1", port), AppHandler)
-    print(f"Server running at http://127.0.0.1:{port}")
-    server.serve_forever()
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=80)

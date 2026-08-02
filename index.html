@@ -1,25 +1,36 @@
 <!DOCTYPE html>
 <html lang="th">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
-    <link rel="stylesheet" href="/static/style.css" />
-  </head>
-  <body>
-    <nav>
-      <a href="/">หน้าแรก</a>
-      <a href="/about">เกี่ยวกับฉัน</a>
-      <a href="/myresearch">งานวิจัย</a>
-    </nav>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>หน้าแรก | Web Application</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav>
+    <a href="/">หน้าแรก</a>
+    <a href="/about">เกี่ยวกับฉัน</a>
+    <a href="/myresearch">งานวิจัย</a>
+  </nav>
 
-    <main>
-      <section class="hero">
-        <h1>สวัสดีครับ</h1>
-        <p>ชื่อ: <strong>นางสาวพิมพ์มาดา ธรรมชาติ</strong></p>
-        <p>ID: <strong>student-2026</strong></p>
-        <p>ฉันเป็นนักพัฒนาเว็บและผู้สนใจเรื่องข้อมูลและการเรียนรู้เชิงลึก</p>
-      </section>
-    </main>
-  </body>
+  <div class="container">
+    <h1>สวัสดีครับ 👋</h1>
+    <p>ยินดีต้อนรับสู่เว็บไซต์ส่วนตัวของผม</p>
+    
+    <div class="card-grid">
+      <div class="card">
+        <h3>👤 ข้อมูลตัวตน</h3>
+        <p>ชื่อ: ประพันธ์</p>
+        <p>รหัสประจำตัว: 68130009</p>
+      </div>
+      <div class="card">
+        <h3>🚀 ระบบที่ใช้งาน</h3>
+        <p>Docker Container + Python Flask</p>
+        <p>Cloudflare Proxy & AWS EC2</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
 </html>

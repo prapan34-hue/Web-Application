@@ -1,0 +1,20 @@
+{
+  "name": "web-application",
+  "version": "1.0.0",
+  "description": "เว็บแอปพลิเคชันแบบง่ายที่แสดงข้อมูลส่วนตัวและงานวิจัยผ่าน 3 หน้า:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prapan34-hue/Web-Application.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prapan34-hue/Web-Application/issues"
+  },
+  "homepage": "https://github.com/prapan34-hue/Web-Application#readme"
+}

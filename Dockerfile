@@ -1,7 +1,15 @@
-FROM node:18-alpine
+FROM python:3.10-slim
+
 WORKDIR /app
-COPY package*.json ./
-RUN npm install --production
+
+# คัดลอกไฟล์ทั้งหมด
 COPY . .
-EXPOSE 3000
-CMD ["node", "app.js"]
+
+# ติดตั้ง Flask
+RUN pip install --no-cache-dir flask
+
+# เปิดพอร์ต 80
+EXPOSE 80
+
+# รันแอป Python
+CMD ["python", "app.py"]
